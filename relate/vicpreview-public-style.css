@@ -1,0 +1,47 @@
+/* vicpreview-public-style */
+.woocommerce-page #content table.cart dd.variation-UploadedFile img{
+	background: transparent;
+	height: 80px;
+	width: auto;
+}
+.before-cart-upload small {
+	color: darkgray;
+}
+.vicpreview-description h5{
+color: chocolate;
+}
+#vicPreviewer{
+position: relative;
+
+}
+.vicpreview-above-cart{
+display: block;
+width: auto;
+margin-bottom:1em;
+}
+.vicpreview-background-blank{
+display:block;
+width: 480px;
+height:480px;
+margin:0;
+background-size:contain;
+background-repeat:no-repeat;
+background-position:center;
+object-fit: cover;
+object-position: calc(100% + 117px) calc(100% + 73px);
+
+}
+.vicpreview-container{
+display:block;
+
+width: 480px;
+height: 480px;
+
+width: auto;
+}
+.woocommerce-page img.vicpreview-above-addtocart{
+max-width: 50%;
+position: relative;
+left: 26%;
+top: 13%;
+}
