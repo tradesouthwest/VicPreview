@@ -18,8 +18,8 @@ add_action( 'wp', 'remove_image_zoom_support', 100 );
 add_action( 'woocommerce_product_options_inventory_product_data', 'vicpreview_general_product_data_field' );
 // PM-2 Save meta 
 add_action( 'woocommerce_process_product_meta', 'vicpreview_save_vicpreview_blank' );
-// @id A1
-//add_action( 'wp_footer', 'vicpreview_background_images_render' ); 
+// A1
+add_action( 'wp_footer', 'vicpreview_background_images_render' ); 
 // A2
 add_action( 'woocommerce_before_add_to_cart_button', 'vicpreview_before_add_to_cart_btn' );
 // F1
@@ -98,32 +98,128 @@ function vicpreview_before_add_to_cart_btn()
             ? '' : get_option('vicpreview_options')['vicpreview_csdescription_field'];
     
     ob_start();
-    $htm = ''; 
+    $htm = '';  
     $htm .= 
-        '<section class="vicpreview-above-cart">
+        '<article class="viewincrystal">
+        <section class="vicpreview-above-cart">
             <p class="before-cart-upload"><small>' . __( $opta, 'vicpreview') 
             . '</small></p>
             <span class="vicpreview-description">' . __( $optb, 'vicpreview') 
             . '</span>
             <input id="vicpreview_blank" type="hidden" value="'. esc_attr($blnk).'" name="vicpreview_blank">
         </section>
-            <div class="clearfix"></div><div id="vicPreviewer-message"></div>
-        <section class="vicpreview-container">';
-    
+        <section id="pfntCan" class="vicpreview-containerz">
+            <div id="vicPreviewer-message"></div>';
     if ( $blnk ) {
-        $htm .= '
-        <div class="vicpreview-background-blank" 
-            style="background-image: url('. esc_url($blnk) .');">
-            <img class="vicpreview-above-addtocart" src="" alt="" />
+    $htm .= 
+        '<div id="preview-areaz">
+        
+            <ul>
+            <li class="image_wrapper">
+       
+            <div id="crystalVic" class="vicpreview-background-blank">
+                <img src="'. esc_url($blnk) .');" alt=""/>
+                <div class="overlay overlay_3">
+                <img id="vicpreview" class="vicpreview-above-addtocart" 
+                src="" 
+                alt="upload your image" />
+                </div>
+            </div>
+            
+            </li>
+            </ul>
         </div>';
     }
 
-    $htm .= '</section><div class="clearfix"></div>';
+    $htm .= 
+        '</section>
+        <div class="printdiv-instructions">
+        <span class="btn btn-primary print">Print Preview</span>
+        </div>
+        </article>';
     
     $htm .= ob_get_clean();
 
         echo $htm;
 } 
+
+/**
+ * @id A1
+ * 
+ * returns inline-'stylesheet' changes to the HTML layout. 
+ */
+function vicpreview_background_images_render( )
+{   
+?>  <script id="jquery-printme">
+// jquery.printpage.js
+// -------------------
+// Adds a print page icon and onclick event handler
+// to a <span class="print">...</span> tag
+// 
+(function(jQuery) {
+    jQuery.fn.printPage = function() {
+       return this.each(function() {
+            // Wrap each element in a <a href="#">...</a> tag
+            var $current = jQuery(this);
+            $current.wrapInner('<a href="#"></a>');
+            
+            jQuery('span.print > a').click(function() {
+                window.print(); 
+                return false;    
+            });
+       });
+    }
+})(jQuery); </script> 
+<script id="picview-footer">
+jQuery(document).ready(function () {
+		jQuery('span.print').printPage();
+	});
+</script>
+
+<?php 
+}
+
+/**
+ * @id A1
+ * onclick="printDiv(\'pfntCan\')
+ * returns inline-'stylesheet' changes to the HTML layout. 
+ */
+
+function vicpreview_background_images_render_old()
+{   
+ob_start();
+?>
+<script id="vicpreview-footer">
+    const printButton = document.getElementById('print-button');
+    const bkgndImg = document.getElementById('crystalVic').getAttribute("title");
+    printButton.addEventListener('click', event => {
+    // build the new HTML page
+    const content = document.getElementById('preview-area').innerHTML;
+    const printHtml = `<html>
+        <head>
+            <meta charset="utf-8">
+            <title>Preview Crystal</title>
+        </head>
+        <body><img style="z-index:1;position:relative" src="${bkgndImg})"/>
+            <div style="z-index:999;position:absolute;top:22%;left:20%;">${content}</div>
+        </body>
+    </html>`;
+    // get the iframe
+    let iFrame = document.getElementById('print-iframe');
+  
+    // set the iFrame contents and print
+    //console.log('iFrame');
+    //console.log(iFrame.contentDocument);
+    iFrame.contentDocument.body.innerHTML = printHtml;
+    iFrame.focus();
+    iFrame.contentWindow.print();
+});
+</script>
+
+<?php 
+    echo ob_get_clean();
+   
+}
 
 /** F3 
  * Change add to cart text on single product page
@@ -166,22 +262,4 @@ function vicpreview_get_item_data( $item_data, $cart_item_data )
     }
     
         return $item_data;
-}
-
-/**
- * @id A1
- * 
- * returns inline-'stylesheet' changes to the HTML layout. 
- */
-function vicpreview_background_images_render( )
-{   
-    if ( !is_cart() ) return;
-
-    $htm = ''; 
-    $htm .= 'vicpreview-background-blank{display:block;width: 320px;height:340px;padding:5px;border:1px solid #ddd;
-    background-size:contain;background-repeat:no-repeat;background-position:center;}
-    .woocommerce-page img.vicpreview-above-addtocart{max-height:320px;}';
-        wp_register_style( 'vicpreview-entry-set', false );
-        wp_enqueue_style(   'vicpreview-entry-set' );
-        wp_add_inline_style( 'vicpreview-entry-set', $htm );
 }

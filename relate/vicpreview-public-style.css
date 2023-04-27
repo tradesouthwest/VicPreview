@@ -19,7 +19,32 @@ display: block;
 width: auto;
 margin-bottom:1em;
 }
-.vicpreview-background-blank{
+
+.dragme{
+    cursor: move;
+}
+.printdiv-instructions .btn{
+display: inline-block;
+margin: 1em 0;
+padding: 5px 10px;
+background: #ddd;
+color: black;
+cursor:pointer;
+}
+.viewincrystal{
+width: 100%;
+padding: 0;
+margin:0;
+}
+
+ @media print {
+ /* 
+ html, body {
+		width: 210mm;
+		height: 297mm;        
+	}
+  
+   .vicpreview-background-blank{
 display:block;
 width: 480px;
 height:480px;
@@ -28,20 +53,82 @@ background-size:contain;
 background-repeat:no-repeat;
 background-position:center;
 object-fit: cover;
-object-position: calc(100% + 117px) calc(100% + 73px);
-
-}
-.vicpreview-container{
-display:block;
-
-width: 480px;
-height: 480px;
-
-width: auto;
+object-position: 50% 50%; 
+		page-break-after: always;
+    }
+*/
+    .noprint,
+    .woocommerce-tabs.wc-tabs-wrapper,
+    section.related,
+    .wp-post-image,
+    .woocommerce-product-gallery__image {
+        display: none;
+    }
+} 
+/* blank image as background */ 
+.vicpreview-background-blank img:not(.vicpreview-above-addtocart){
+height: 372px;
+width: 372px;
+box-shadow: 0 0 4px 4px rgba(200,200,200, .5);
 }
 .woocommerce-page img.vicpreview-above-addtocart{
-max-width: 50%;
+height: 186px;
+width: 186px;
+} 
+#preview-areaz ul li,
+#preview-areaz ul,
+#preview-areaz ol ul{
+	list-style: none;
+  margin: 0 0 0 0;
+}
+.vicpreview-background-blank{
+display:block;
+
+margin:0;
+background-size:contain;
+background-repeat:no-repeat;
+background-position:center;
+/*object-fit: cover;
+object-position: 50% 50%; */
+}
+.vicpreview-containerz{
+margin: 0;
+padding: 0;
+
+height:100%
+}
+
+.overlay_3 img{
+
+position:relative;
+left: 40%;
+top: 23%;
+}  
+.image_wrapper{
 position: relative;
-left: 26%;
-top: 13%;
+}
+
+#preview-areaz{
+  position: relative;
+padding:0;
+margin: 0;
+}
+.overlay {
+  position: absolute; 
+  left: 0;
+  top: 0;
+}
+.overlay_3 {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem;
+  transform: scale(0);
+  transition: all .3s ease-in-out;
+  backdrop-filter: blur(1px) brightness(99%);
+  width:fit-content
+}
+
+.image_wrapper .overlay_3 {
+  transform: scale(1);
 }

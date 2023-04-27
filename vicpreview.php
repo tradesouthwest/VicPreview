@@ -3,7 +3,7 @@
  * Plugin Name:       VIC Preview
  * Plugin URI:        https://themes.tradesouthwest.com/wordpress/plugins/
  * Description:       Preview WooCommerce Product Image.
- * Version:           1.1.0
+ * Version:           1.1.2
  * Author:            Larry Judd
  * Author URI:        http://tradesouthwest.com
  * @package           vicpreview
@@ -57,9 +57,18 @@ function vicpreview_addtosite_scripts()
     wp_enqueue_style( 'vicpreview-public',  
                     plugin_dir_url(__FILE__) . 'relate/vicpreview-public-style.css',
                     array(), VICPREVIEW_VER, false );
+        
     wp_enqueue_script( 'vicpreview-front', 
                     plugin_dir_url( __FILE__ ) . 'relate/vicpreview-front.js', 
                     array( 'jquery' ), VICPREVIEW_VER, true ); 
+/*
+    wp_enqueue_script( 'vicpreview-canvas', 
+                    plugin_dir_url( __FILE__ ) . 'relate/vicpreview-canvas.js', 
+                    array( 'jquery' ), VICPREVIEW_VER, true ); 
+    */
+    //wp_enqueue_script( 'jquery-ui-draggable' );
+    //wp_enqueue_script( 'jquery-ui-resize' );
+
 }
 add_action( 'wp_enqueue_scripts', 'vicpreview_addtosite_scripts' );
 

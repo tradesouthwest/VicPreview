@@ -68,8 +68,8 @@ function vicpreview_register_admin_options()
             'type'         => 'text',
             'option_group' => 'vicpreview_options', 
             'name'         => 'vicpreview_cstitle_field',
-            'value'        => 
-            esc_attr( get_option( 'vicpreview_options' )['vicpreview_cstitle_field'] ),
+            'value'        => (empty(get_option( 'vicpreview_options' )['vicpreview_cstitle_field']))
+                    ? '' : esc_attr( get_option( 'vicpreview_options' )['vicpreview_cstitle_field'] ),
             'description'  => esc_html__( 'Shows below the last field in checkout.', 'vicpreview' ),
             'tip'          => esc_html__( 'Also used in orders in admin', 'vicpreview' )
         )
@@ -85,8 +85,8 @@ function vicpreview_register_admin_options()
             'type'         => 'text',
             'option_group' => 'vicpreview_options', 
             'name'         => 'vicpreview_csdescription_field',
-            'value'        => 
-            esc_attr( get_option( 'vicpreview_options' )['vicpreview_csdescription_field'] ),
+            'value'        => (empty(get_option( 'vicpreview_options' )['vicpreview_csdescription_field']))
+                    ? '' : esc_attr( get_option( 'vicpreview_options' )['vicpreview_csdescription_field'] ),
             'description'  => esc_html__( 'Shows above the blank preview image', 'vicpreview' ),
              'tip'         => esc_html__( 'Try: Image is only an example', 'vicpreview' )
         )
